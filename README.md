@@ -4,10 +4,15 @@ A twitter bot we're making for class, don't judge, its still a mess
 # Run brain.py to start the bot
 
 You need:
+
 Numpy
+
 Pyperclip
+
 Pyautogui
+
 Keyboard
+
 CV2
 
 The pictures might be different than whats on your screen, same with the amount of pixels the mouse moves.
