@@ -11,6 +11,7 @@ num = num.split()
 num = num[2]
 num = int(num)
 currFollowed = num  # LIMIT TO AROUND 350
+allfollowed = open('allfollowed.txt', 'r+')
 
 
 def follow():
@@ -18,7 +19,7 @@ def follow():
     pyautogui.PAUSE = 1.0
     locate_user()
 
-
+########## You can ignore most of this
 def click_explore(images):
 # Click on the explore button
     sleep(3)
@@ -47,6 +48,7 @@ def click_latest(images):
         print("ERROR: Can not locate Twitter window.\n Bring on screen or scale to full screen.\n")
         sleep(4)
         latest = pyautogui.locateOnScreen(images.get("latest"))
+########################################
 
 
 def savedata():
@@ -93,7 +95,7 @@ def FFCount(s):
         num3 = num2 - num1
         num4 = num1 / num2
 
-        if num3 < 150 or num4 > .75:
+        if num3 < 100 or num4 > .85:
             return True
         else:
             return False
@@ -143,6 +145,10 @@ def keepitgoing(loc):
             res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
             threshold = 0.8
             loc = np.where(res >= threshold)
+
+            if len(loc[0]) == 0:
+                break
+
             for npt in zip(*loc[::-1]):
                 pyautogui.moveTo(npt[0], npt[1] + 5)
                 pyautogui.click()
@@ -153,6 +159,10 @@ def keepitgoing(loc):
             namelink = namelink.split('/')
             namelink = namelink[len(namelink)-1]
             namelink = '@' + namelink
+
+            global allfollowed
+            if namelink in allfollowed:
+                break
 
             # Finds the text "Not followed by anyone"
             # which is typically found on the bottom of every user when the mouse hovers over their name.
@@ -165,6 +175,9 @@ def keepitgoing(loc):
             threshold = 0.8
             loc = np.where(res >= threshold)
 
+            if len(loc[0]) == 0:
+                break
+
             for npt in zip(*loc[::-1]):
                 pyautogui.moveTo(npt[0], npt[1] + 5)
                 break
@@ -175,7 +188,7 @@ def keepitgoing(loc):
             text = pyperclip.paste()
 
             try:
-                # If follower / following ration is good, it'll follow them
+                # If follower / following ratio is good, it'll follow them
                 if FFCount(text):
                     pyautogui.screenshot('img/screenshot.png')
                     img_rgb = cv2.imread('img/screenshot.png')
@@ -184,6 +197,10 @@ def keepitgoing(loc):
                     res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
                     threshold = 0.8
                     loc = np.where(res >= threshold)
+
+                    if len(loc[0]) == 0:
+                        break
+
                     for npt in zip(*loc[::-1]):
                         pyautogui.moveTo(npt[0] + 10, npt[1] + 10)
                         break
