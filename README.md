@@ -1,4 +1,5 @@
-# Run brain.py to start the bot
+#Another Twitter Bot 
+#Run brain.py to start the bot
 
 You need:
 
