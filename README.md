@@ -1,18 +1,20 @@
-# CSC-450--TWITTER-BOT
-A twitter bot we're making for class, don't judge, its still a mess
+# Another Twitter Bot
+Hope you don't mind the mess :)
 
 # Run brain.py to start the bot
 
 You need:
 
-Numpy
+- Numpy
 
-Pyperclip
+- Pyperclip
 
-Pyautogui
+- Pyautogui
 
-Keyboard
+- Keyboard
 
-CV2
+- CV2
+
+The bot will look for the @ symbol relating to users twitter handles. It will hover over it and see if their follower/following count is a sufficient ratio to follow them.
 
 The pictures might be different than whats on your screen, same with the amount of pixels the mouse moves.
