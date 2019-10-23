@@ -14,7 +14,7 @@ You need:
 
 The bot will look for the @ symbol relating to users twitter handles (And, oh my god, can I say how much better CV2 works than pyautgui for finding images on screen? It's like night and day!). It will hover over the symbol and see if their follower/following count is a sufficient ratio to follow them.
 
-The pictures might be different than whats on your screen, same with the amount of pixels the mouse moves, so you might have to change them to fit your system. This definitely isn't the best method, but it works okay for now.
+The pictures might be different than whats on your screen, same with the amount of pixels the mouse moves, so you might have to change them to fit your system. This definitely isn't the best method, but it works okay for now. I think that in the future, using a combination of CV2's image finding and a browser engine like selenium would yield the best results.
 
 Sometimes it still wigs out a little bit, so keep an eye on it to make sure it doesn't do anything weird.
 
