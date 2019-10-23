@@ -1,6 +1,3 @@
-# Another Twitter Bot
-Hope you don't mind the mess :)
-
 # Run brain.py to start the bot
 
 You need:
