@@ -2,6 +2,8 @@
 
 # Run brain.py to start the bot
 
+I made this because twitter didn't "technically" give me access to a bot account, so I had to MacGyver it a little.
+
 You need:
 
 - Numpy
@@ -25,3 +27,6 @@ The pictures might be different than whats on your screen, same with the amount 
 Sometimes it still wigs out a little bit, so keep an eye on it to make sure it doesn't do anything weird.
 
 
+My next step after making sure that it can follow/unfollow without goofing is to automate it more. As in, I intend to have it follow and unfollow people every day without me needing to press the buttons to start it up. 
+
+Maybe eventually I could get it to tweet by itself too.
