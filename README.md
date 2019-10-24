@@ -29,4 +29,6 @@ Sometimes it still wigs out a little bit, so keep an eye on it to make sure it d
 
 My next step after making sure that it can follow/unfollow without goofing is to automate it more. As in, I intend to have it follow and unfollow people every day without me needing to press the buttons to start it up. 
 
+Ooh, and I want it to keep track of how many people it follows in a day by itself. As of right now I have to change the txt files manually, and boy does that get annoying. I might whip that up in the next few days.
+
 Maybe eventually I could get it to tweet by itself too.
