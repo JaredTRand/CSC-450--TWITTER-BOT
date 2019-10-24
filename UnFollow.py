@@ -1,21 +1,12 @@
 import pyautogui
-import  cv2
-import numpy as np
 from time import sleep
+from Follow import locate_image
 import pyperclip
 
 
 def unfollow():
     pyautogui.PAUSE = .3
-
-    pyautogui.screenshot('img/screenshot.png')
-    img_rgb = cv2.imread('img/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('img/profile.png', 0)
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.8
-    loc = np.where(res >= threshold)
-    #if len(loc[0]) == 0:
+    loc = locate_image('profile', .8)
 
     for npt in zip(*loc[::-1]):
         pyautogui.moveTo(npt[0], npt[1] + 5)
@@ -24,14 +15,7 @@ def unfollow():
         break
 
     sleep(3)
-
-    pyautogui.screenshot('img/screenshot.png')
-    img_rgb = cv2.imread('img/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('img/profilefollowers.png', 0)
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.9
-    loc = np.where(res >= threshold)
+    loc = locate_image('profilefollowers', .9)
 
     for npt in zip(*loc[::-1]):
         pyautogui.moveTo(npt[0], npt[1] + 5)
@@ -40,14 +24,7 @@ def unfollow():
         break
 
     sleep(3)
-
-    pyautogui.screenshot('img/screenshot.png')
-    img_rgb = cv2.imread('img/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('img/tweetbutton.png', 0)
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.8
-    loc = np.where(res >= threshold)
+    loc = locate_image('tweetbutton', .8)
 
     for npt in zip(*loc[::-1]):
         pyautogui.moveTo(npt[0], npt[1] + 5)
@@ -70,14 +47,7 @@ def unfollow():
     f.close()
 
     pyautogui.click()
-
-    pyautogui.screenshot('img/screenshot.png')
-    img_rgb = cv2.imread('img/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('img/profilefollowing.png', 0)
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.9
-    loc = np.where(res >= threshold)
+    loc = locate_image('profilefollowing', .9)
 
     for npt in zip(*loc[::-1]):
         pyautogui.moveTo(npt[0], npt[1] + 5)
@@ -97,6 +67,9 @@ def unfollow():
     pyautogui.hotkey('end')
     pyautogui.hotkey('end')
     pyautogui.hotkey('end')
+    pyautogui.hotkey('end')
+    pyautogui.hotkey('end')
+    pyautogui.hotkey('end')
     pyautogui.PAUSE = .3
 
     f = open('unfollowedcount.txt', 'r+')
@@ -104,17 +77,11 @@ def unfollow():
     num = int(num)
     curunfollowed = num
 
-    while curunfollowed <= 90:
-        pyautogui.screenshot('img/screenshot.png')
-        img_rgb = cv2.imread('img/screenshot.png')
-        img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-        template = cv2.imread('img/atSign.png', 0)
-        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-        threshold = .9
-        loc = np.where(res >= threshold)
-
+    while curunfollowed <= 85:
+        loc = locate_image('atSign', .9)
         dothething(loc)
-        pyautogui.scroll(1000)
+        pyautogui.scroll(1500)
+        sleep(.5)
 
 
 def dothething(loc):
@@ -128,10 +95,10 @@ def dothething(loc):
     curunfollowed = num
 
     for npt in zip(*loc[::-1]):
-        if curunfollowed >= 90:
+        if curunfollowed >= 85:
             print('Too many unfollowed today. Edit unfollowedcount.txt to unfollow more.')
             quit()
-        pyautogui.moveTo(npt[0] - 4, npt[1] + 11)
+        pyautogui.moveTo(npt[0] - 4, npt[1] + 9)
         pyautogui.dragRel(300, 0, duration=.7)
         pyautogui.hotkey('ctrl', 'c')
         copy = pyperclip.paste()
@@ -145,14 +112,8 @@ def dothething(loc):
             print('Unfollowing {}'.format(copy[len(copy)-1]))
             pyautogui.moveRel(165, -10)
             pyautogui.click()
-
-            pyautogui.screenshot('img/screenshot.png')
-            img_rgb = cv2.imread('img/screenshot.png')
-            img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-            template = cv2.imread('img/unfollowbtn.png', 0)
-            res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-            threshold = 0.8
-            loc = np.where(res >= threshold)
+            print(curunfollowed)
+            loc = locate_image('unfollowbtn', .8)
 
             for npt in zip(*loc[::-1]):
                 pyautogui.moveTo(npt[0], npt[1] + 5)

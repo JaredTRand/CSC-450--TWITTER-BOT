@@ -16,8 +16,14 @@ allfollowed = open('allfollowed.txt', 'r+')
 
 
 def follow():
-    sleep(5)
+    sleep(1)
     pyautogui.PAUSE = .3
+    loc = locate_image('tweetbutton', .8)
+    for npt in zip(*loc[::-1]):
+        pyautogui.moveTo(npt[0], npt[1]+100)
+        pyautogui.click()
+        pyautogui.hotkey('f5')
+        break
     locate_user()
 
 
@@ -80,7 +86,7 @@ def FFCount(s):
 # This one finds all the @ symbols on the page to look for users to follow, then throws it into a loop
 def locate_user():
     while keyboard.is_pressed('q') is not True and currFollowed <= limit:
-        pyautogui.hotkey('f5')
+        pyautogui.scroll(-2000)
         sleep(5)
         loc = locate_image('atsign', 0.8)
         keepitgoing(zip(*loc[::-1]))
@@ -122,12 +128,12 @@ def keepitgoing(loc):
             if len(loc[0]) == 0:
                 pyautogui.moveTo(pt[0] + 10, pt[1] + 5)
                 pyautogui.rightClick()
-                loc = locate_image('tweetbutton', 0.8)
+                loc = locate_image('copylinklocation', 0.8)
 
                 for npt in zip(*loc[::-1]):
                     pyautogui.moveRel(150)
                     pyautogui.click()
-                    pyautogui.hotkey('f5')
+                    pyautogui.scroll(-2000)
                     break
 
             for npt in zip(*loc[::-1]):
@@ -157,11 +163,11 @@ def keepitgoing(loc):
                 # and if it cant find THAT, then it just breaks
                 if len(loc[0]) == 0:
                     break
-                for npt in zip(*loc[::-1]):
-                    loc2 = locate_image('followbtn', 0.9)
-                    for npp in zip(*loc2[::-1]):
-                        pyautogui.moveTo(npp[0] - 195, npp[1] + 190)
-                        break
+                loc2 = locate_image('followbtn', 0.8)
+                if len(loc2[0]) == 0:
+                    loc2 = locate_image('followingbtn', .8)
+                for npp in zip(*loc2[::-1]):
+                    pyautogui.moveTo(npp[0] - 195, npp[1] + 190)
                     break
             else:
                 for npt in zip(*loc[::-1]):
