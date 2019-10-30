@@ -1,7 +1,8 @@
 import pyautogui
 from time import sleep
-from Follow import locate_image
+from Follow import locate_image, check_time
 import pyperclip
+from time import time
 
 
 def unfollow():
@@ -57,19 +58,8 @@ def unfollow():
     sleep(2)
 
     pyautogui.PAUSE = .9
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
-    pyautogui.hotkey('end')
+    for n in range(10):
+        pyautogui.hotkey('end')
     pyautogui.PAUSE = .3
 
     f = open('unfollowedcount.txt', 'r+')
@@ -78,15 +68,19 @@ def unfollow():
     curunfollowed = num
 
     while curunfollowed <= 85:
-        loc = locate_image('atSign', .9)
+        loc = locate_image('otheratsign', .95, color_on=True)
         dothething(loc)
-        pyautogui.scroll(1500)
-        sleep(.5)
+        pyautogui.scroll(1750)
+        sleep(1)
 
 
 def dothething(loc):
     f = open('followers.txt', 'r')
     g = f.read()
+    f.close()
+
+    f = open('unfollowedusers.txt', 'r+')
+    h = f.read()
     f.close()
 
     f = open('unfollowedcount.txt', 'r+')
@@ -96,7 +90,13 @@ def dothething(loc):
 
     for npt in zip(*loc[::-1]):
         if curunfollowed >= 85:
-            print('Too many unfollowed today. Edit unfollowedcount.txt to unfollow more.')
+            print('Too many unfollowed today. Wait 24 hours to unfollow more.')
+
+            # Write the last time followed to latesttime.txt
+            f = open('latesttime.txt').read().splitlines()
+            f[1] = '\nLast Unfollowed: {}\n'.format(time())  # The \n in the front of the string is important
+            open('latesttime.txt', 'w').write(''.join(f))
+
             quit()
         pyautogui.moveTo(npt[0] - 4, npt[1] + 9)
         pyautogui.dragRel(300, 0, duration=.7)
@@ -106,8 +106,8 @@ def dothething(loc):
         copy = copy.split()
         name = copy[len(copy)-1]
         n = open('unfollowedusers.txt')
-        if name in g or 'Follows' in name or name in n.read():
-            pass
+        if name in g or 'Follows' in name or name in n.read() or name in h.splitlines():
+            continue
         else:
             print('Unfollowing {}'.format(copy[len(copy)-1]))
             pyautogui.moveRel(165, -10)

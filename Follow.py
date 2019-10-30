@@ -4,6 +4,8 @@ import cv2
 import numpy as np
 import pyperclip
 import keyboard
+from time import time
+from datetime import datetime
 
 f = open('data.txt', 'r')
 num = f.read()
@@ -12,7 +14,10 @@ num = num[2]
 num = int(num)
 currFollowed = num  # LIMIT TO AROUND 350
 limit = 350
+unfollowlimit = 85
 allfollowed = open('allfollowed.txt', 'r+')
+
+lasttimefollowed = open('latesttime.txt', )
 
 
 def follow():
@@ -24,7 +29,57 @@ def follow():
         pyautogui.click()
         pyautogui.hotkey('f5')
         break
+
     locate_user()
+
+
+def check_time(whattype):
+    followedcount = open('data.txt').read().split()
+    followedcount = followedcount[2]
+
+    unfollowedcount = open('unfollowedcount.txt').read().split()
+    unfollowedcount = unfollowedcount[0]
+
+    lasttimes = open('latesttime.txt').read().splitlines()
+    n = lasttimes[0].split()
+    n = n[2]
+    nn = lasttimes[1].split()
+    nn = nn[2]
+    if whattype == 'follow':
+        if int(followedcount) < limit:
+            return True
+        if (time() - float(n)) > 86400:
+            write_to_file('otherdata', '{}  {}'
+                          .format(open('data.txt').read(), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            overwrite_to_file('data', 'r+', extra='Users Followed: ')
+            return True  # Returns true if 24 hours have passed since last followed people.
+        return False    # Retunes false if it hasn't been 24 hours
+
+    elif whattype == 'unfollow':
+        if int(unfollowedcount) < unfollowlimit:
+            return True
+        if (time() - float(nn)) > 86400:
+            write_to_file('unfollowedtruecount', '{}  {}'
+                          .format(open('unfollowedcount.txt').read(), datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+            overwrite_to_file('unfollowedcount', 'r+')
+            return True  # Returns true if 24 hours have passed since last followed people.
+        return False    # Retunes false if it hasn't been 24 hours
+    else:
+        return False
+
+
+def overwrite_to_file(filename, mode, extra=''):
+    f = open('{}.txt'.format(filename), mode)
+    f.seek(0)
+    f.write('{}0'.format(extra))
+    f.truncate()
+    f.close()
+
+
+def write_to_file(filename, extra=''):
+    f = open('{}.txt'.format(filename), 'a+')
+    f.write('{}\n'.format(extra))
+    f.close()
 
 
 def savedata():
@@ -93,15 +148,23 @@ def locate_user():
 
 
 # This guy will locate an image on the page (and way better than pyautogui does)
-def locate_image(imgname, thresholdamt):
-    pyautogui.screenshot('img/screenshot.png')
-    img_rgb = cv2.imread('img/screenshot.png')
-    img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
-    template = cv2.imread('img/{}.png'.format(imgname), 0)
-    res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
-    threshold = thresholdamt
-    loc = np.where(res >= threshold)
-    return loc
+def locate_image(imgname, threshold, color_on=False):
+    if color_on is False:
+        pyautogui.screenshot('img/screenshot.png')
+        img_rgb = cv2.imread('img/screenshot.png')
+        img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_BGR2GRAY)
+        template = cv2.imread('img/{}.png'.format(imgname), 0)
+        res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+        loc = np.where(res >= threshold)
+        return loc
+    else:
+        pyautogui.screenshot('img/screenshot.png')
+        img = cv2.imread('img/screenshot.png')
+        template = cv2.imread('img/{}.png'.format(imgname))
+        res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
+        loc = np.where(res >= threshold)
+        return loc
+        # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
 
 
 def keepitgoing(loc):
@@ -115,9 +178,15 @@ def keepitgoing(loc):
             global currFollowed
             f = open('allfollowed.txt', 'a+')
             if currFollowed >= 350:
-                print("Daily follow limit reached (350).\nEdit data.txt to follow more.")
+                print("Daily follow limit reached (350).\nWait 24 hours to follow more.")
+
                 savedata()
                 f.close()
+
+                # Write the last time followed to latesttime.txt
+                f = open('latesttime.txt').read().splitlines()
+                f[0] = 'Last Followed: {}\n'.format(time())
+                open('latesttime.txt', 'w').write(''.join(f))
                 quit()
 
             # gets the link location so we can easily get the username
@@ -126,15 +195,16 @@ def keepitgoing(loc):
             loc = locate_image('copylinklocation', 0.8)
 
             if len(loc[0]) == 0:
-                pyautogui.moveTo(pt[0] + 10, pt[1] + 5)
-                pyautogui.rightClick()
-                loc = locate_image('copylinklocation', 0.8)
+                continue
+               # pyautogui.moveTo(pt[0] + 10, pt[1] + 5)
+               # pyautogui.rightClick()
+               # loc = locate_image('copylinklocation', 0.8)
 
-                for npt in zip(*loc[::-1]):
-                    pyautogui.moveRel(150)
-                    pyautogui.click()
-                    pyautogui.scroll(-2000)
-                    break
+               # for npt in zip(*loc[::-1]):
+               #     pyautogui.moveRel(150)
+                #    pyautogui.click()
+                #    pyautogui.scroll(-2000)
+                 #   break
 
             for npt in zip(*loc[::-1]):
                 pyautogui.moveTo(npt[0], npt[1] + 5)
