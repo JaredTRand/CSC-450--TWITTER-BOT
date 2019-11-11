@@ -20,3 +20,6 @@ swap_user(bot2)   <-- This will log out bot1 and log in bot2, just make sure the
 
 There's also a small bug where something adds extra brackets to accountdata.json, so just delete them if it does that. I'll try to fix that up soon
 
+
+I also made this on a computer with a 1920x1080 resolution monitor, so it's possible that the amount of pixels the mouse moves may be different on your system.
+
