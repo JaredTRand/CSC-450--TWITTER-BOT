@@ -14,6 +14,9 @@ bot1 = TwitterBot(user=0)  <-- This creates a new bot from the first portion of 
 bot1.follow()   <-- This part will follow users, just be sure the twitter page is open when you start
 bot1.unfollow()   <-- This makes a list of everyone who follows it and unfollows users that don't follow the bot back
 bot2 = TwitterBot(user=1)   <-- This is assuming there's another portion in the accountdata.json
-swap
+swap_user(bot2)   <-- This will log out bot1 and log in bot2, just make sure the credentials are in accountdata.json
 ```
+
+
+There's also a small bug where something adds extra brackets to accountdata.json, so just delete them if it does that. I'll try to fix that up soon
 
