@@ -1,0 +1,61 @@
+[
+    {
+        "Name": "bot1",
+        "UsersFollowed": 0,
+        "UsersUnfollowed": 0,
+        "TimesLeft": [
+            0,
+            0
+        ],
+        "Limits": [
+            250,
+            85
+        ],
+        "Credentials": [
+            "twitterusername",
+            "twitterpassword"
+        ],
+        "Keywords": [
+            "mayonnaise",
+            "condiment",
+            "mustard",
+            "relish"
+        ],
+        "TotalUsersFollowed": [
+            ""
+        ],
+        "TotalUsersUnfollowed": [
+            ""
+        ]
+    },
+    {
+        "Name": "bot2",
+        "UsersFollowed": 0,
+        "UsersUnfollowed": 0,
+        "TimesLeft": [
+            0,
+            0
+        ],
+        "Limits": [
+            250,
+            85
+        ],
+        "Credentials": [
+            "twitterusername",
+            "twitterpassword"
+        ],
+        "Keywords": [
+            "mayonnaise",
+            "condiment",
+            "mustard",
+            "relish"
+        ],
+        "TotalUsersFollowed": [
+            ""
+        ],
+        "TotalUsersUnfollowed": [
+            ""
+        ]
+    }
+]}
+]
