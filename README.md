@@ -26,4 +26,10 @@ I also made this on a computer with a 1920x1080 resolution monitor, so it's poss
 
 For reference, here is how the bot is supposed to work:
 
+<img src="https://media.giphy.com/media/TeskaWwjXO7jseeFWu/giphy.gif"/>
+The above gif is the bot following users.
+
 <img src="https://media.giphy.com/media/W3kk6HM46bLgeT7aB2/giphy.gif"/>
+The above gif is the bot unfollowing users who dont follow the bot back.
+
+
