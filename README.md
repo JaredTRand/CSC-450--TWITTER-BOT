@@ -23,3 +23,7 @@ There's also a small bug where something adds extra brackets to accountdata.json
 
 I also made this on a computer with a 1920x1080 resolution monitor, so it's possible that the amount of pixels the mouse moves may be different on your system.
 
+
+For reference, here is how the bot is supposed to work:
+
+<img src="https://media.giphy.com/media/W3kk6HM46bLgeT7aB2/giphy.gif"/>
