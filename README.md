@@ -33,3 +33,6 @@ For reference, here is how the bot is supposed to work:
 <img src="https://media.giphy.com/media/W3kk6HM46bLgeT7aB2/giphy.gif" width="200%" height="200%" />The above gif is the bot unfollowing users who dont follow the bot back.
 
 
+
+Eventually I'll see if I can get the bot to tweet funny things on its own. Maybe I'll have it hold a long list of tweets that I want it to send out every day or so, something like that.
+
