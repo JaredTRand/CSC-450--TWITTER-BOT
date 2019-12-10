@@ -22,6 +22,7 @@ There's also a small bug where something adds extra brackets to accountdata.json
 
 
 I also made this on a computer with a 1920x1080 resolution monitor, so it's possible that the amount of pixels the mouse moves may be different on your system.
+I also took the screenshots using twitter's dim theme with purple coloring (the one with the octopus).
 
 
 For reference, here is how the bot is supposed to work:
